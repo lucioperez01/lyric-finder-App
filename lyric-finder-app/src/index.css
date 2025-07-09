@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+body {
+  overflow-x: hidden;
+}
+
+footer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  padding: 1rem;
+  color: #c4c4c4;
+  text-align: center;
+}
