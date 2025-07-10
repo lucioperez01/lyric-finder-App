@@ -1,4 +1,5 @@
 export default function Content() {
+    
     return (
         <main className="p-4 text-[0.9em] flex flex-col items-center justify-center text-center text-[#c4c4c4] bg-#121212 w-full z-10">
             <h1 className="text-lg font-bold mb-2">Resultados de tu búsqueda</h1>
