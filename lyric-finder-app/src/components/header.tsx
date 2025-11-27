@@ -17,7 +17,7 @@ export default function Header({ onSearch }: HeaderProps) {
     return(
         <header className=" p-18 flex flex-col items-center justify-center text-center overflow-x-hidden h-full z-10 border-b-1-[#fff]">
             {/* Logo */}
-            <img src="/public/lyric-finder-APP-logo.png" 
+            <img src="/lyric-finder-APP-logo.png" 
                 alt="logo Lyric Finder APP" 
                 className="logo_app" 
             />
