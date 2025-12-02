@@ -79,18 +79,13 @@ function App() {
               } else {
               console.error("Error al buscar lyrics:", error);
               }
-            }
-
-            finally {
+            } finally {
               setLoading(false);
             }
-
-            
-
             
           }
           return(
-              <ResultList onResult={handleLyrics} result={result} trackName={trackName} artistName= {artistName} trackId={trackId} artworkUrl= {artworkUrl}/>
+            <ResultList onResult={handleLyrics} result={result} trackName={trackName} artistName= {artistName} trackId={trackId} artworkUrl= {artworkUrl}/>
           );
         }
       )
@@ -105,20 +100,17 @@ function App() {
           <div className=' w-full '>
             <Footer></Footer> 
           </div>
-        
         <BackgroundBeams></BackgroundBeams>
       </div>
     </>
   )  
 }
 
-
 function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error("Timeout"));
     }, ms);
-
     fetch(url)
       .then(response => {
         clearTimeout(timeout);
@@ -130,6 +122,5 @@ function fetchWithTimeout(url: string, ms: number): Promise<Response> {
       });
   });
 }
-
 
 export default App

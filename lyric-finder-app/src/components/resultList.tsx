@@ -13,7 +13,7 @@ export default function ResultList({onResult, result, trackName, artistName, tra
                 <img src={artworkUrl} alt={trackName} className='rounded-md h-15 w-15' />
                 <div className='flex flex-col justify-center ml-4'>
                     <strong>{artistName}</strong>
-                    <p>{trackName} hola</p>
+                    <p>{trackName}</p>
                 </div>
             </div>
             )
