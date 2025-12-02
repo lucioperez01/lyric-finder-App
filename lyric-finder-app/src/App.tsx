@@ -8,7 +8,7 @@ import { BackgroundBeams } from './components/third-party/background-lines'
 import ResultList from './components/resultList'
 import Loading from './components/loading'
 
-import { Routes, Route } from 'react-router-dom'
+
 function App() {
   type appData = {
     result: string[];
@@ -28,11 +28,15 @@ function App() {
 
   const handleSearch = async (searchQuery: string): Promise<void> => {
         try {
+            setLoading(true);
             const res = await fetch(API_URL + searchQuery)
             const data = await res.json();
             setResults(data.results)
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
         }
     };
     
