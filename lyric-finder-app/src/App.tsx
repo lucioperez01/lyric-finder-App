@@ -4,8 +4,10 @@ import Header from './components/header'
 import Footer from './components/footer'
 import Content from './components/content'
 import Modal from './components/modal'
-import { BackgroundBeams } from './components/background-lines'
+import { BackgroundBeams } from './components/third-party/background-lines'
 import ResultList from './components/resultList'
+import Loading from './components/loading'
+
 import { Routes, Route } from 'react-router-dom'
 function App() {
   type appData = {
@@ -22,6 +24,7 @@ function App() {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [artistName, setArtistName] = useState<string>('')
   const [trackName, setTrackName] = useState<string>('')
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (searchQuery: string): Promise<void> => {
         try {
@@ -43,38 +46,86 @@ function App() {
           const handleLyrics = async () => {
             let API_LYRICS_URL = 'https://api.lyrics.ovh/v1/';
             let lyrics = `${API_LYRICS_URL}${encodeURIComponent(artistName)}/${encodeURIComponent(trackName)}`;
+
             try {
+              setLoading(true);
               console.log(`buscando lyrics de ${artistName} - ${trackName}`);
-              const res = await fetch(lyrics)
+              const res = await fetchWithTimeout(lyrics, 8000);
               const data = await res.json();
               console.log(data);
-              setLyrics(data.lyrics);
+              setLoading(false);
+              
+              if (data.lyrics) {
+                setLyrics(data.lyrics);
+                setModalOpen(true)
+                setArtistName(artistName)
+                setTrackName(trackName)
+              }
+
+              if (data.error) {
+              setLyrics('');
               setModalOpen(true)
               setArtistName(artistName)
               setTrackName(trackName)
-
-            } catch(error) {
-              console.error('Error al buscar lyrics:', error);
             }
+
+            } catch (error: any) {
+              if (error.message === "Timeout") {
+                alert("El servidor tardó demasiado en responder. Intentá de nuevo.");
+              } else {
+              console.error("Error al buscar lyrics:", error);
+              }
+            }
+
+            finally {
+              setLoading(false);
+            }
+
+            
+
             
           }
           return(
               <ResultList onResult={handleLyrics} result={result} trackName={trackName} artistName= {artistName} trackId={trackId} artworkUrl= {artworkUrl}/>
-            );
-      }
-    )
+          );
+        }
+      )
     }
-  return (
+    return (
     <>
-      <div className="App overflow-hidden flex flex-col">
+      <div className="App overflow-hidden flex flex-col min-h-screen align-center justify-center">
         <Header onSearch={ handleSearch } ></Header>
         <Content onResult={ handleResult } result={ result } ></Content>
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} onLyrics={lyrics} onArtistName={artistName} onTrackName={trackName}/>
-        <Footer></Footer> 
+        {loading && <Loading loading={loading} />}
+          <div className=' w-full '>
+            <Footer></Footer> 
+          </div>
+        
         <BackgroundBeams></BackgroundBeams>
       </div>
     </>
   )  
 }
+
+
+function fetchWithTimeout(url: string, ms: number): Promise<Response> {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Timeout"));
+    }, ms);
+
+    fetch(url)
+      .then(response => {
+        clearTimeout(timeout);
+        resolve(response);
+      })
+      .catch(err => {
+        clearTimeout(timeout);
+        reject(err);
+      });
+  });
+}
+
 
 export default App

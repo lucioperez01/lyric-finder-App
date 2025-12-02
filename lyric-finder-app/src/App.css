@@ -13,10 +13,11 @@ body {
     180deg,
     rgb(36, 36, 36) 0%,
     rgb(38, 38, 38) 25%,
-    rgba(19, 53, 32, 1) 100%
+    rgb(38, 115, 68) 100%
   );
-  display:flex;
+  display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
   height: 100vh;
