@@ -7,6 +7,7 @@ import Modal from './components/modal'
 import { BackgroundBeams } from './components/third-party/background-lines'
 import ResultList from './components/resultList'
 import Loading from './components/loading'
+import { Analytics } from "@vercel/analytics/next"
 
 
 function App() {
@@ -102,6 +103,9 @@ function App() {
         <Content onResult={ handleResult } result={ result } ></Content>
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} onLyrics={lyrics} onArtistName={artistName} onTrackName={trackName}/>
         {loading && <Loading loading={loading} />}
+        <div>
+        <Analytics />
+        </div>
           <div className=' w-full '>
             <Footer></Footer> 
           </div>

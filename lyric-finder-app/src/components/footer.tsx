@@ -9,8 +9,8 @@ export default function Footer() {
         <footer className="p-2 gap-1 flex flex-col items-center justify-center text-center text-[#c4c4c4] z-10">
             <p className=" text-[0.7rem]">© 2025 Lyric Finder APP. Todos los derechos reservados.</p>
             <div className="flex ">
-            <a href="#" className="text-[0.7rem]">Política de privacidad</a>
-            <a href="#" className="text-[0.7rem]">Términos de servicio</a>
+            <a href="#" className="text-[0.7rem]">Política de privacidad </a>
+            <a href="#" className="text-[0.7rem]">Términos de servicio </a>
             </div>
 
             <div>
